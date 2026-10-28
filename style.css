@@ -12,7 +12,7 @@ header nav{margin-left:auto}nav{display:flex;gap:14px;align-items:center;font-si
 .hero{height:50vh;min-height:280px;position:relative;margin-top:64px;display:grid;place-items:center;color:#fff;overflow:hidden}
 .top .hero{height:calc(100vh - 64px)}
 .hero img,.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.7)}
-.hero h1{position:relative;font-size:clamp(40px,8vw,96px);font-weight:400;text-align:center}
+.hero h1{position:relative;font-size:clamp(40px,8vw,72px);font-weight:400;text-align:center}
 .teal{background:linear-gradient(var(--c),var(--d));color:#fff;padding:80px 5vw}
 .w{max-width:960px;margin:0 auto}.pad{padding:80px 5vw}
 .band{position:relative;height:clamp(160px,25vw,300px);display:grid;place-items:center;color:#fff;overflow:hidden;background:#555}.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.6)}.band h2{position:relative}.lead{text-align:center;font-size:13px;margin-bottom:48px}.sp{display:none}.h2{text-align:center;font-size:clamp(32px,5vw,60px);font-weight:400;line-height:1.3}
@@ -60,3 +60,35 @@ nav a{transition:opacity .3s}nav a:hover{opacity:.6}
 @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .hero h1{animation:up 1.4s ease .3s both}
 @media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none}.hero h1{animation:none}.btn{transition:none}}
+
+/* ===== FB対応 ===== */
+.fv img{opacity:0;transition:opacity 1.5s ease}
+.fv img.on{opacity:1;animation:zb 6s ease-out forwards}
+@keyframes zb{from{transform:scale(1.18)}to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.fv img.on{animation:none}}
+.hero h1{line-height:1.25;text-shadow:0 2px 20px #0006}
+.feat>video{width:100%;height:auto;border-radius:12px;background:#000}
+.cta-sp{display:none}
+/* PC: 画像を大きく */
+#features .w,#activity .w,#facility .w{max-width:1200px}
+#features .sl{flex:2!important}
+#activity .feat>img{flex:1.8;aspect-ratio:3/2;object-fit:cover}
+#facility .feat>img{flex:1.6}
+#facility .g.x3{max-width:none;gap:24px}#facility .g.x3 img{aspect-ratio:4/3}
+[data-zoom] .teal .w,[data-zoom] .pad .w{max-width:1200px}
+[data-zoom] .g{grid-template-columns:repeat(2,1fr);gap:24px}
+[data-zoom] .g img{aspect-ratio:3/2}
+[data-zoom] .g img:first-child:nth-last-child(3){grid-column:1/-1;aspect-ratio:2/1}
+@media(max-width:768px){
+/* SP: 縦型・画面幅いっぱい */
+#features .sl{flex:none!important;margin-inline:-5vw;border-radius:0}
+#features .tr img{aspect-ratio:4/5}
+#activity .feat>img{flex:none;margin-inline:-5vw;width:calc(100% + 10vw);max-width:none;border-radius:0!important;aspect-ratio:4/5}
+#facility.teal{padding-inline:3vw}#facility .card{padding:20px}#facility .feat>img{flex:none}
+#facility .g.x3{grid-template-columns:1fr}#facility .g.x3 img{aspect-ratio:4/5}
+[data-zoom] .g{grid-template-columns:1fr}
+[data-zoom] .g img,[data-zoom] .g img:first-child:nth-last-child(3){aspect-ratio:4/3;grid-column:auto}
+/* SP: 追従CTA */
+.cta-sp{display:block;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 5vw calc(10px + env(safe-area-inset-bottom));background:var(--c);box-shadow:0 -2px 10px #0003}
+.cta-sp .btn{display:block;text-align:center;padding:12px}
+footer{padding-bottom:96px}}

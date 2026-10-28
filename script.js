@@ -4,6 +4,9 @@ const nav=L.map(([t,h])=>`<a class="en" href="${h}">${t}</a>`).join('');
 const IG='<a class="ig" href="https://www.instagram.com/smallresortshima/" target="_blank"><img src="img/instagram.png" alt="Instagram"></a>';
 document.body.insertAdjacentHTML('afterbegin',`<header><a class="logo en" href="index.html">Small Resort 志摩</a><nav id="gn">${nav}${IG}<a class="btn mb" href="${RES}">WEB予約はこちら ――</a></nav><button class="burger" aria-label="menu" onclick="gn.classList.toggle('on')"><i></i><i></i><i></i></button></header>`);
 document.body.insertAdjacentHTML('beforeend',`<footer><div class="w"><div><h3>スモールリゾート志摩</h3><p>〒517-0704 三重県志摩市志摩町越賀759-3</p><p><a class="btn" href="${RES}">WEB予約はこちら ――</a></p><p style="font-size:12px"><a href="index.html#contact">当サイトに関するお問い合わせはこちら</a><br><a href="privacy.html">プライバシーポリシー</a></p></div><nav class="en">${nav}${IG}</nav></div><small>©スモールリゾート志摩 Allrights Reserved.</small></footer><div id="lb"><img alt=""></div>`);
+document.body.insertAdjacentHTML('beforeend',`<div class="cta-sp"><a class="btn" href="${RES}">WEB予約はこちら ――</a></div>`); // SP追従CTA
+// FVスライド(6秒ごとにフェード切替)
+const fv=[...document.querySelectorAll('.fv img')];if(fv.length>1){let n=0;setInterval(()=>{fv[n].classList.remove('on');n=(n+1)%fv.length;fv[n].classList.add('on')},6000)}
 // 仮画像: 画像ファイルが無い場合はグレーを表示(img/ に差し替えるだけでOK)
 const PH='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="#b9c9cc"/><text x="300" y="210" font-size="28" text-anchor="middle" fill="#fff">IMAGE</text></svg>');
 const fb=i=>{if(i.src!==PH)i.src=PH};
