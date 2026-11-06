@@ -62,12 +62,13 @@ nav a{transition:opacity .3s}nav a:hover{opacity:.6}
 @media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none}.hero h1{animation:none}.btn{transition:none}}
 
 /* ===== FB対応 ===== */
-.fv img{opacity:0;transition:opacity 1.5s ease}
-.fv img.on{opacity:1;animation:zb 6s ease-out forwards}
+.fv img{opacity:0;transition:opacity 1.2s ease}
+.fv img.on{opacity:1;animation:zb 5s ease-out forwards}
 @keyframes zb{from{transform:scale(1.18)}to{transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){.fv img.on{animation:none}}
 .hero h1{line-height:1.25;text-shadow:0 2px 20px #0006}
-.feat>video{width:100%;height:auto;border-radius:12px;background:#000}
+/* 動画: 横型にトリミング(サムネイル・再生とも同じ比率)。比率は --vr で変更可(例 16/9, 3/2) */
+.feat>video{--vr:16/9;width:100%;aspect-ratio:var(--vr);object-fit:cover;border-radius:12px;background:#000}
 .cta-sp{display:none}
 /* PC: 画像を大きく */
 #features .w,#activity .w,#facility .w{max-width:1200px}
@@ -92,3 +93,11 @@ nav a{transition:opacity .3s}nav a:hover{opacity:.6}
 .cta-sp{display:block;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 5vw calc(10px + env(safe-area-inset-bottom));background:var(--c);box-shadow:0 -2px 10px #0003}
 .cta-sp .btn{display:block;text-align:center;padding:12px}
 footer{padding-bottom:96px}}
+
+/* FVインジケーター: 表示中=◯ 他=● */
+.fv-dots{position:absolute;left:0;right:0;bottom:28px;display:flex;justify-content:center;gap:12px;z-index:2}
+.fv-dots button{width:10px;height:10px;padding:0;border-radius:50%;border:1px solid #fff;background:#fff;cursor:pointer;transition:background .3s,transform .3s;position:relative}
+.fv-dots button::after{content:"";position:absolute;inset:-10px}
+.fv-dots button.on{background:transparent;transform:scale(1.2)}
+.fv-dots button:hover{opacity:.7}
+@media(max-width:768px){.fv-dots{bottom:20px;gap:14px}}

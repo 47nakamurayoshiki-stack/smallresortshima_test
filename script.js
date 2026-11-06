@@ -5,8 +5,17 @@ const IG='<a class="ig" href="https://www.instagram.com/smallresortshima/" targe
 document.body.insertAdjacentHTML('afterbegin',`<header><a class="logo en" href="index.html">Small Resort 志摩</a><nav id="gn">${nav}${IG}<a class="btn mb" href="${RES}">WEB予約はこちら ――</a></nav><button class="burger" aria-label="menu" onclick="gn.classList.toggle('on')"><i></i><i></i><i></i></button></header>`);
 document.body.insertAdjacentHTML('beforeend',`<footer><div class="w"><div><h3>スモールリゾート志摩</h3><p>〒517-0704 三重県志摩市志摩町越賀759-3</p><p><a class="btn" href="${RES}">WEB予約はこちら ――</a></p><p style="font-size:12px"><a href="index.html#contact">当サイトに関するお問い合わせはこちら</a><br><a href="privacy.html">プライバシーポリシー</a></p></div><nav class="en">${nav}${IG}</nav></div><small>©スモールリゾート志摩 Allrights Reserved.</small></footer><div id="lb"><img alt=""></div>`);
 document.body.insertAdjacentHTML('beforeend',`<div class="cta-sp"><a class="btn" href="${RES}">WEB予約はこちら ――</a></div>`); // SP追従CTA
-// FVスライド(6秒ごとにフェード切替)
-const fv=[...document.querySelectorAll('.fv img')];if(fv.length>1){let n=0;setInterval(()=>{fv[n].classList.remove('on');n=(n+1)%fv.length;fv[n].classList.add('on')},6000)}
+// FVスライド(5秒ごとにフェード切替 / ドットで手動切替 / スワイプ対応)
+(()=>{const h=document.querySelector('.fv'),fv=h?[...h.querySelectorAll('img')]:[];if(fv.length<2)return;
+const box=document.createElement('div');box.className='fv-dots';
+const ds=fv.map((_,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`${i+1}枚目を表示`);b.onclick=()=>{go(i);start()};box.appendChild(b);return b});
+h.appendChild(box);let n=0,t;
+const go=i=>{if(i===n)return;fv[n].classList.remove('on');ds[n].classList.remove('on');n=(i+fv.length)%fv.length;fv[n].classList.add('on');ds[n].classList.add('on')};
+const start=()=>{clearInterval(t);t=setInterval(()=>go(n+1),5000)};
+ds[0].classList.add('on');start();
+let x0=null;h.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+h.addEventListener('touchend',e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50){go(n+(d<0?1:-1));start()}});
+})();
 // 仮画像: 画像ファイルが無い場合はグレーを表示(img/ に差し替えるだけでOK)
 const PH='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="#b9c9cc"/><text x="300" y="210" font-size="28" text-anchor="middle" fill="#fff">IMAGE</text></svg>');
 const fb=i=>{if(i.src!==PH)i.src=PH};
